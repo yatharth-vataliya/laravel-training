@@ -14,7 +14,9 @@ class ManageUserController extends Controller
      */
     public function index()
     {
-        //
+        $manage_users = ManageUser::paginate(10);
+//        return response()->json($manage_users);
+        return view('manage_users.index',compact('manage_users'));
     }
 
     /**
