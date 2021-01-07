@@ -17,3 +17,5 @@ Next Create table fields in migration file after that run `php artisan migrate` 
 
 Next Edit generated factory for your model and after that define it in your seeder file with your initial config to generate how many records and then run following command
     :- php artisan db:seed --class=<<your seeder name>>
+
+Next install yajra/laravel-datatables-oracle using composer and setup it's configurations for laravel mentioned in its official github repo
