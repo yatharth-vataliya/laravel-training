@@ -92,11 +92,10 @@ class ManageUserController extends Controller
     function ajaxManageUsersData(Request $request)
     {
         if ($request->ajax()) {
-//            $manage_users = ManageUser::latest();
-//            return response()->json($request->all());
-
             $manage_users = $this->manageUserRepository->getByDate($request->start_date, $request->end_date);
-            return DataTables::of($manage_users)->addIndexColumn()->make(true);
+            return DataTables::of($manage_users)->addIndexColumn()->editColumn('date',function($data){
+                return date('d-m-Y',strtotime($data->date));
+            })->make(true);
         }
     }
 

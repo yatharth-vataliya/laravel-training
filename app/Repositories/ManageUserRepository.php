@@ -40,7 +40,7 @@ class ManageUserRepository implements Interfaces\ManageUserRepositoryInterface
 
     public function deleteById($id): bool
     {
-        return $this->model->destroy();
+        return $this->model->find($id)->delete();
     }
 
     public function getByLatest(): Collection
@@ -52,12 +52,12 @@ class ManageUserRepository implements Interfaces\ManageUserRepositoryInterface
     {
         $query = $this->model->query();
         if (!empty($start_date)) {
-            $start_date = date('Y-m-d', strtotime($start_date));
-            $query->whereDate('date', '>', $start_date);
+//            $start_date = date('Y-m-d', strtotime($start_date." -1 days"));
+            $query->where('date', '>=', $start_date);
         }
         if (!empty($end_date)) {
-            $end_date = date('Y-m-d', strtotime($end_date));
-            $query->whereDate('date', '<', $end_date);
+//            $end_date = date('Y-m-d', strtotime($end_date." +1 days"));
+            $query->where('date', '<=', $end_date);
         }
 
         return $query->get();

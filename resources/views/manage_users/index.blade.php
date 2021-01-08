@@ -22,6 +22,9 @@
                 <label for="end_date">End Date</label>
                 <input type="date" class="form-control" id="end_date">
             </div>
+            <div class="col-md-2 p-2">
+                <button class="mt-4 btn btn-outline-danger" type="button" id="clear_search">Clear</button>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -60,14 +63,15 @@
 @push('scripts')
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script>
-        var start_date = end_date = '';
+        var start_date = '';
+        var end_date = '';
         const data_table = $("#manage_user_table").DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: '{{ route('ajax-manage-users-data') }}',
                 type: "GET",
-                data: function(data){
+                data: function (data) {
                     data.start_date = start_date;
                     data.end_date = end_date;
                 }
@@ -92,6 +96,12 @@
         $("#end_date").on('input', function () {
             start_date = $("#start_date").val();
             end_date = $("#end_date").val();
+            data_table.ajax.reload();
+        });
+
+        $("#clear_search").click(function () {
+            start_date = '';
+            end_date = '';
             data_table.ajax.reload();
         });
 
