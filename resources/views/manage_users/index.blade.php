@@ -5,6 +5,7 @@
 @endsection
 
 @push('styles')
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
     <style>
 
     </style>
@@ -46,6 +47,7 @@
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script>
         $("#manage_user_table").DataTable({
             processing: true,

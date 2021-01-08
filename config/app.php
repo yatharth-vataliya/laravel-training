@@ -181,6 +181,11 @@ return [
 
         Yajra\DataTables\DataTablesServiceProvider::class,
 
+        /*
+         * Repository Provider
+         */
+
+        \App\Providers\RepositoryServiceProvider::class
     ],
 
     /*
