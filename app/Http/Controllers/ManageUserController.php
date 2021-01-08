@@ -36,7 +36,7 @@ class ManageUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,7 +47,7 @@ class ManageUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ManageUser  $manageUser
+     * @param \App\Models\ManageUser $manageUser
      * @return \Illuminate\Http\Response
      */
     public function show(ManageUser $manageUser)
@@ -58,7 +58,7 @@ class ManageUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ManageUser  $manageUser
+     * @param \App\Models\ManageUser $manageUser
      * @return \Illuminate\Http\Response
      */
     public function edit(ManageUser $manageUser)
@@ -69,8 +69,8 @@ class ManageUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ManageUser  $manageUser
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\ManageUser $manageUser
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ManageUser $manageUser)
@@ -81,7 +81,7 @@ class ManageUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ManageUser  $manageUser
+     * @param \App\Models\ManageUser $manageUser
      * @return \Illuminate\Http\Response
      */
     public function destroy(ManageUser $manageUser)
@@ -89,10 +89,13 @@ class ManageUserController extends Controller
         //
     }
 
-    function ajaxManageUsersData(Request $request){
-        if($request->ajax()){
+    function ajaxManageUsersData(Request $request)
+    {
+        if ($request->ajax()) {
 //            $manage_users = ManageUser::latest();
-            $manage_users = $this->manageUserRepository->getByLatest();
+//            return response()->json($request->all());
+
+            $manage_users = $this->manageUserRepository->getByDate($request->start_date, $request->end_date);
             return DataTables::of($manage_users)->addIndexColumn()->make(true);
         }
     }

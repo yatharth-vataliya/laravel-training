@@ -7,6 +7,7 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ManageUser;
+use Illuminate\Support\Facades\DB;
 
 class ManageUserRepository implements Interfaces\ManageUserRepositoryInterface
 {
@@ -42,7 +43,23 @@ class ManageUserRepository implements Interfaces\ManageUserRepositoryInterface
         return $this->model->destroy();
     }
 
-    public function getByLatest() : Collection {
-        return $this->model->latest()->get();
+    public function getByLatest(): Collection
+    {
+        return $this->model->get();
+    }
+
+    public function getByDate(?string $start_date, ?string $end_date): Collection
+    {
+        $query = $this->model->query();
+        if (!empty($start_date)) {
+            $start_date = date('Y-m-d', strtotime($start_date));
+            $query->whereDate('date', '>', $start_date);
+        }
+        if (!empty($end_date)) {
+            $end_date = date('Y-m-d', strtotime($end_date));
+            $query->whereDate('date', '<', $end_date);
+        }
+
+        return $query->get();
     }
 }

@@ -27,7 +27,8 @@ class ManageUserFactory extends Factory
             'user_email' => $this->faker->unique()->safeEmail,
             'user_address' => $this->faker->address,
             'user_mobile' => $this->faker->phoneNumber,
-            'gender' => $gender[random_int(0, 1)]
+            'gender' => $gender[random_int(0, 1)],
+            'date' => $this->faker->date()
         ];
     }
 }
