@@ -14,9 +14,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered table-hover table-striped">
+                <table class="table table-bordered table-hover table-striped" id="manage_user_table">
                     <thead>
                     <tr>
+                        <th>No.</th>
                         <th>Username</th>
                         <th>User Email</th>
                         <th>Address</th>
@@ -24,7 +25,7 @@
                         <th>Gender</th>
                     </tr>
                     </thead>
-                    <tbody>
+                   {{-- <tbody>
                     @foreach($manage_users as $user)
                         <tr>
                             <td>{{ $user->user_name }}</td>
@@ -34,11 +35,11 @@
                             <td>{{ $user->gender }}</td>
                         </tr>
                     @endforeach
-                    </tbody>
+                    </tbody>--}}
                 </table>
-                <div class="text-center">
+                {{--<div class="text-center">
                     {{ $manage_users->links() }}
-                </div>
+                </div>--}}
             </div>
         </div>
     </div>
@@ -46,6 +47,18 @@
 
 @push('scripts')
     <script>
-
+        $("#manage_user_table").DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{{ route('ajax-manage-users-data') }}',
+            columns:[
+                {data: 'id'},
+                {data: 'user_name'},
+                {data: 'user_email'},
+                {data: 'user_address'},
+                {data: 'user_mobile'},
+                {data: 'gender'}
+            ]
+        });
     </script>
 @endpush

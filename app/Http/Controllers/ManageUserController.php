@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ManageUser;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class ManageUserController extends Controller
 {
@@ -14,7 +15,7 @@ class ManageUserController extends Controller
      */
     public function index()
     {
-        $manage_users = ManageUser::paginate(10);
+        $manage_users = ManageUser::latest()->paginate(10);
 //        return response()->json($manage_users);
         return view('manage_users.index',compact('manage_users'));
     }
@@ -84,4 +85,12 @@ class ManageUserController extends Controller
     {
         //
     }
+
+    function ajaxManageUsersData(Request $request){
+        if($request->ajax()){
+            $manage_users = ManageUser::select(['id','user_name','user_email','user_address','user_mobile','gender'])->latest();
+            return DataTables::of($manage_users)->addIndexColumn()->make(true);
+        }
+    }
+
 }

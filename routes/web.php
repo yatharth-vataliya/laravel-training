@@ -26,4 +26,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/manage_user/index', [ManageUserController::class, 'index'])->name('manage_user.index');
 
+    Route::get('/ajax-manage-users-data',[ManageUserController::class, 'ajaxManageUsersData'])->name('ajax-manage-users-data');
+
 });
