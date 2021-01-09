@@ -59,7 +59,11 @@
                     @else
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('manage_user.index') }}">Manage User</a>
+                            <a class="nav-link" href="{{ route('manage_users.index') }}">Manage Users</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('students.index') }}">Students</a>
                         </li>
 
                         <li class="nav-item dropdown">

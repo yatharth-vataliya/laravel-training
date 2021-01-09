@@ -7,7 +7,6 @@ namespace App\Repositories;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ManageUser;
-use Illuminate\Support\Facades\DB;
 
 class ManageUserRepository implements Interfaces\ManageUserRepositoryInterface
 {

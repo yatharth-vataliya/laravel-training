@@ -102,6 +102,8 @@
         $("#clear_search").click(function () {
             start_date = '';
             end_date = '';
+            $("#start_date").val('');
+            $("#end_date").val('');
             data_table.ajax.reload();
         });
 
