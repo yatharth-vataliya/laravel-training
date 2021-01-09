@@ -191,7 +191,6 @@ class StudentController extends Controller
                 Log::debug($th->getMessage());
             }
         }
-        Log::critical($request->all());
         $this->studentRepository->deleteById($request->student_id);
     }
 

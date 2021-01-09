@@ -91,9 +91,7 @@
             let id = $(this).attr('id');
             res = confirm('Are you sure you want to delete this student ?');
             if(res){
-                axios.post('{{ route('students.destroy',['student' => 0]) }}',{
-                    _token : '{{ csrf_token() }}',
-                    _method: 'DELETE',
+                axios.delete('{{ route('students.destroy',['student' => 0]) }}',{
                     student_id : id
                 }).then(function (response){
                     window.location.reload();

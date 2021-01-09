@@ -30,8 +30,7 @@ Edit Student
 
     <div class="row p-2">
         <div class="col-md-12">
-            <form action="{{ route('students.update',['student' => $student->id]) }}" method="POST" enctype="multipart/form-data">
-                @method('PATCH')
+            <form action="{{ route('students.update') }}" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="student_id" value="{{ $student->id }}">
                 <input type="hidden" name="is_image_delete" value="no" id="is_image_delete">
                 @csrf
@@ -51,9 +50,9 @@ Edit Student
         $("#preview_image").attr('src', src);
     });
 
-    $("#delete_image").click(function() {
+    $("#delet_image").click(function() {
         $("#is_image_delete").val('yes');
-        $("#preview_image").css('display', 'none');
+        console.log("yes");
     });
 </script>
 @endpush

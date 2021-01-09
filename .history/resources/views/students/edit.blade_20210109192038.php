@@ -31,7 +31,6 @@ Edit Student
     <div class="row p-2">
         <div class="col-md-12">
             <form action="{{ route('students.update',['student' => $student->id]) }}" method="POST" enctype="multipart/form-data">
-                @method('PATCH')
                 <input type="hidden" name="student_id" value="{{ $student->id }}">
                 <input type="hidden" name="is_image_delete" value="no" id="is_image_delete">
                 @csrf

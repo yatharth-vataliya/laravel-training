@@ -181,17 +181,9 @@ class StudentController extends Controller
      * @param \App\Models\Student $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$student)
+    public function destroy(Request $request)
     {
         $student = Student::find($request->student_id);
-        if (!empty($student)) {
-            try {
-                unlink(storage_path('app/custom/profile_pictures/') . $student->getRawOriginal('student_profile_picture'));
-            } catch (\Throwable $th) {
-                Log::debug($th->getMessage());
-            }
-        }
-        Log::critical($request->all());
         $this->studentRepository->deleteById($request->student_id);
     }
 

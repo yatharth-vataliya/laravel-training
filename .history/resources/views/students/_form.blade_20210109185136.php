@@ -83,8 +83,8 @@
         <textarea name="student_address" id="student_address" cols="30" rows="5" class="form-control" placeholder="Student Address">{{ (!empty($student) ? $student->student_address : (!empty(old('student_address')) ? old('student_address') : '')) }}</textarea>
     </div>
     <div class="col-md-3">
-        @if(!empty($student) && !empty($student->getRawOriginal('student_profile_picture')))
-        <button class="btn btn-danger" id="delete_image" type="button"><i class="fas fa-trash"></i></button>
+        @if(!empty($student->getRawOriginal('student_profile_picture')))
+
         @endif
         <img src="{{ (!empty($student) ? $student->student_profile_picture : '') }}" style="height: 200px; width: 200px;" id="preview_image" alt="Preview Profile Picture">
     </div>

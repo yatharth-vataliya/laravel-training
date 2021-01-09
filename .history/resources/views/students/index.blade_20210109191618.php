@@ -79,7 +79,7 @@
                     orderable: false,
                     render: function (data, type, row, meta) {
                         return `
-                            <a href="{{ url('students/') }}/${row.id}/edit" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="{{ url('students/edit') }}/${row.id}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
                             <button type="button" class="delete btn btn-danger" id="${row.id}"><i class="fas fa-trash"></i></button>
                         `;
                     }
@@ -93,7 +93,6 @@
             if(res){
                 axios.post('{{ route('students.destroy',['student' => 0]) }}',{
                     _token : '{{ csrf_token() }}',
-                    _method: 'DELETE',
                     student_id : id
                 }).then(function (response){
                     window.location.reload();

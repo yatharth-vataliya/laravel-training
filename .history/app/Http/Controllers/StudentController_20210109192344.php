@@ -181,7 +181,7 @@ class StudentController extends Controller
      * @param \App\Models\Student $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$student)
+    public function destroy(Request $request,Student $student)
     {
         $student = Student::find($request->student_id);
         if (!empty($student)) {
@@ -191,7 +191,6 @@ class StudentController extends Controller
                 Log::debug($th->getMessage());
             }
         }
-        Log::critical($request->all());
         $this->studentRepository->deleteById($request->student_id);
     }
 

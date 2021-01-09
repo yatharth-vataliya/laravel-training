@@ -14,6 +14,7 @@ class StudentController extends Controller
 
     public function __construct(private StudentRepository $studentRepository)
     {
+
     }
 
     /**
@@ -44,8 +45,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = Validator::make(
-            $request->all(),
+        $validated = Validator::make($request->all(),
             [
                 'student_name' => 'required|string|max:100',
                 'student_email' => 'required|string|email|max:100|unique:students,student_email',
@@ -74,6 +74,7 @@ class StudentController extends Controller
             $filename = '_' . time() . '.' . $request->file('student_profile_picture')->getClientOriginalExtension();
             $request->file('student_profile_picture')->storeAs('custom/profile_pictures/', $filename,);
             $student['student_profile_picture'] = $filename;
+
         }
         $student['student_gender'] = $request->input('student_gender');
         $hobbies = $request->input('student_hobbies');
@@ -117,8 +118,7 @@ class StudentController extends Controller
     public function update(Request $request)
     {
 
-        $validated = Validator::make(
-            $request->all(),
+        $validated = Validator::make($request->all(),
             [
                 'student_id' => 'required|numeric',
                 'student_name' => 'required|string|max:100',
@@ -149,21 +149,14 @@ class StudentController extends Controller
         $data['student_address'] = $request->input('student_address');
         if ($request->hasFile('student_profile_picture')) {
             try {
-                unlink(storage_path('app/custom/profile_pictures/') . $student->getRawOriginal('student_profile_picture'));
-            } catch (\Throwable $th) {
+                unlink(storage_path('app/custom/profile_pictures/').$student->getRawOriginal('student_profile_picture'));
+            }catch (\Throwable $th){
                 Log::debug($th->getMessage());
             }
             $filename = '_' . time() . '.' . $request->file('student_profile_picture')->getClientOriginalExtension();
             $request->file('student_profile_picture')->storeAs('custom/profile_pictures/', $filename,);
             $data['student_profile_picture'] = $filename;
-        }
-        if ($request->input('is_image_delete') == 'yes') {
-            try {
-                unlink(storage_path('app/custom/profile_pictures/') . $student->getRawOriginal('student_profile_picture'));
-                $data['student_profile_picture'] = NULL;
-            } catch (\Throwable $th) {
-                Log::debug($th->getMessage());
-            }
+
         }
         $data['student_gender'] = $request->input('student_gender');
         $hobbies = $request->input('student_hobbies');
@@ -171,7 +164,7 @@ class StudentController extends Controller
         $hobbies = trim($hobbies, ',');
         $data['student_hobbies'] = $hobbies;
 
-        $this->studentRepository->updateStudent($data, $student);
+        $this->studentRepository->updateStudent($data,$student);
         return response()->redirectToRoute('students.index');
     }
 
@@ -181,17 +174,8 @@ class StudentController extends Controller
      * @param \App\Models\Student $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$student)
+    public function destroy(Request $request)
     {
-        $student = Student::find($request->student_id);
-        if (!empty($student)) {
-            try {
-                unlink(storage_path('app/custom/profile_pictures/') . $student->getRawOriginal('student_profile_picture'));
-            } catch (\Throwable $th) {
-                Log::debug($th->getMessage());
-            }
-        }
-        Log::critical($request->all());
         $this->studentRepository->deleteById($request->student_id);
     }
 

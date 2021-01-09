@@ -28,22 +28,21 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/ajax-manage-users-data', [ManageUserController::class, 'ajaxManageUsersData'])->name('ajax-manage-users-data');
 
-    Route::get('/students/ajax-students-data', [StudentController::class, 'ajaxStudentsData'])->name('ajax-students-data');
-
-    /*Route::get('/students/index', [StudentController::class, 'index'])->name('students.index');
+    Route::get('/students/index', [StudentController::class, 'index'])->name('students.index');
 
     //    Route::view('/students/create','students.create')->name('students.create');
     Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
 
     Route::post('/students/store', [StudentController::class, 'store'])->name('students.store');
 
-    
+    Route::get('/students/ajax-students-data', [StudentController::class, 'ajaxStudentsData'])->name('ajax-students-data');
+
     Route::get('/students/edit/{student}', [StudentController::class, 'edit'])->name('students.edit');
 
     Route::post('/students/update', [StudentController::class, 'update'])->name('students.update');
 
     Route::post('/students/destroy', [StudentController::class, 'destroy'])->name('students.destroy');
-    */
+
 
     Route::resource('/students', StudentController::class);
 });

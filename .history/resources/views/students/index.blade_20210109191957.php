@@ -93,7 +93,6 @@
             if(res){
                 axios.post('{{ route('students.destroy',['student' => 0]) }}',{
                     _token : '{{ csrf_token() }}',
-                    _method: 'DELETE',
                     student_id : id
                 }).then(function (response){
                     window.location.reload();
