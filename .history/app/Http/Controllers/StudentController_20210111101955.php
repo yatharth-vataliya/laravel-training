@@ -55,7 +55,7 @@ class StudentController extends Controller
                 'student_address' => 'required|string|max:200',
                 'student_profile_picture' => 'required|file|mimes:jpg,JPG,png,PNG,bpm,gif',
                 'student_gender' => 'required|string|max:8',
-                'student_hobbies' => 'required|array|max:4',
+                'student_hobbies' => 'nullable|array|max:4',
             ],
             [
                 'student_name.required' => 'Please Fill Student Name',

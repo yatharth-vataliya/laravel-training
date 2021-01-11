@@ -2,31 +2,22 @@
 <div class="row my-4">
     <div class="col-md-3">
         <label for="student_name">Student Name</label>
-        <input type="text" class="form-control @error('student_name') is-invalid @enderror" id="student_name" value="{{ (!empty($student) ? $student->student_name : (!empty(old('student_name')) ? old('student_name') : '')) }}" name="student_name" placeholder="Student Name">
+        <input type="text" class="form-control @error('student_name') @enderror" id="student_name" value="{{ (!empty($student) ? $student->student_name : (!empty(old('student_name')) ? old('student_name') : '')) }}" name="student_name" placeholder="Student Name">
         @error('student_name')
         <div class="alert alert-danger">{{ $message }}</div>
         @enderror
     </div>
     <div class="col-md-3">
         <label for="student_email">Student Email</label>
-        <input type="email" class="form-control @error('student_email') is-invalid @enderror" id="student_email" value="{{ (!empty($student) ? $student->student_email : (!empty(old('student_email')) ? old('student_email') : '')) }}" name="student_email" placeholder="Student Email">
-        @error('student_email')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+        <input type="email" class="form-control" id="student_email" value="{{ (!empty($student) ? $student->student_email : (!empty(old('student_email')) ? old('student_email') : '')) }}" name="student_email" placeholder="Student Email">
     </div>
     <div class="col-md-3">
         <label for="student_birth_date">Date of Birth</label>
-        <input type="date" class="form-control @error('student_birth_date') is-invalid @enderror" id="student_birth_date" value="{{ (!empty($student) ? $student->student_birth_date : (!empty(old('student_birth_date')) ? old('student_birth_date') : '')) }}" name="student_birth_date">
-        @error('student_birth_date')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+        <input type="date" class="form-control" id="student_birth_date" value="{{ (!empty($student) ? $student->student_birth_date : (!empty(old('student_birth_date')) ? old('student_birth_date') : '')) }}" name="student_birth_date">
     </div>
     <div class="col-md-3">
         <label for="student_mobile">Student Mobile</label>
-        <input type="text" class="form-control @error('student_mobile') is-invalid @enderror" id="student_mobile" value="{{ (!empty($student) ? $student->student_mobile : (!empty(old('student_mobile')) ? old('student_mobile') : '')) }}" name="student_mobile" placeholder="Student Mobile">
-        @error('student_mobile')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+        <input type="text" class="form-control" id="student_mobile" value="{{ (!empty($student) ? $student->student_mobile : (!empty(old('student_mobile')) ? old('student_mobile') : '')) }}" name="student_mobile" placeholder="Student Mobile">
     </div>
 </div>
 <div class="row my-4">
@@ -37,9 +28,6 @@
             <input type="radio" name="student_gender" value="female" id="female" {{ ((!empty($student) ? $student->student_gender : (!empty(old('student_gender')) ? old('student_gender') : '')) == 'female' ? 'checked' : '') }}>
             <label for="male">Male</label>
             <input type="radio" name="student_gender" value="male" id="male" {{ ((!empty($student) ? $student->student_gender : (!empty(old('student_gender')) ? old('student_gender') : '')) == 'male' ? 'checked' : '') }}>
-            @error('student_gender')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
         </fieldset>
     </div>
     <div class="col-md-3">
@@ -64,14 +52,11 @@
             <input type="checkbox" id="mount_climbing" value="mount_climbing" class="custom-checkbox" name="student_hobbies[]" {{ (in_array('mount_climbing',$hobbies) ? 'checked' : '') }}>
             <label for="swimming">Swimming</label>
             <input type="checkbox" id="swimming" value="swimming" class="custom-checkbox" name="student_hobbies[]" {{ (in_array('swimming',$hobbies) ? 'checked' : '') }}>
-            @error('student_hobbies')
-            <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
         </fieldset>
     </div>
     <div class="col-md-3">
         <label for="student_stream">Select Stream</label>
-        <select name="student_stream" id="student_stream" class="custom-select @error('student_stream') is-invalid @enderror">
+        <select name="student_stream" id="student_stream" class="custom-select">
             <option value="" selected="false" disabled="true">-- select student stream --</option>
             <option value="B.Sc.IT" {{ ((!empty($student) ? $student->student_stream : (!empty(old('student_stream')) ? old('student_stream') : '')) == 'B.Sc.IT' ? 'selected' : '') }}>
                 B.Sc.IT
@@ -89,25 +74,16 @@
                 B.Voc.AC.TECH
             </option>
         </select>
-        @error('student_stream')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
     </div>
     <div class="col-md-3">
         <label for="student_profile_picture">Select Profile Picture</label>
         <input type="file" id="student_profile_picture" name="student_profile_picture" class="form-control">
-        @error('student_profile_picture')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
     </div>
 </div>
 <div class="row py-4">
     <div class="col-md-3">
         <label for="student_address">Student Address</label>
-        <textarea name="student_address" id="student_address" cols="30" rows="5" class="form-control @error('student_address') @enderror" placeholder="Student Address">{{ (!empty($student) ? $student->student_address : (!empty(old('student_address')) ? old('student_address') : '')) }}</textarea>
-        @error('student_address')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+        <textarea name="student_address" id="student_address" cols="30" rows="5" class="form-control" placeholder="Student Address">{{ (!empty($student) ? $student->student_address : (!empty(old('student_address')) ? old('student_address') : '')) }}</textarea>
     </div>
     <div class="col-md-3">
         @if(!empty($student) && !empty($student->getRawOriginal('student_profile_picture')))

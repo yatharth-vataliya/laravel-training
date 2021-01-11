@@ -17,7 +17,7 @@
 
     <div class="container-fluid bg-white rounded">
 
-        {{-- @if ($errors->any())
+        @if ($errors->any())
             <div class="rounded shadow my-2 alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -25,7 +25,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif --}}
+        @endif
 
         <div class="row p-2">
             <div class="col-md-12">

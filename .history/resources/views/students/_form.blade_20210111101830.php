@@ -90,24 +90,21 @@
             </option>
         </select>
         @error('student_stream')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
     </div>
     <div class="col-md-3">
         <label for="student_profile_picture">Select Profile Picture</label>
         <input type="file" id="student_profile_picture" name="student_profile_picture" class="form-control">
-        @error('student_profile_picture')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
     </div>
+    @error('student_profile_picture')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
 </div>
 <div class="row py-4">
     <div class="col-md-3">
         <label for="student_address">Student Address</label>
         <textarea name="student_address" id="student_address" cols="30" rows="5" class="form-control @error('student_address') @enderror" placeholder="Student Address">{{ (!empty($student) ? $student->student_address : (!empty(old('student_address')) ? old('student_address') : '')) }}</textarea>
-        @error('student_address')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
     </div>
     <div class="col-md-3">
         @if(!empty($student) && !empty($student->getRawOriginal('student_profile_picture')))

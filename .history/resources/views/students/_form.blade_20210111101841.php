@@ -96,10 +96,10 @@
     <div class="col-md-3">
         <label for="student_profile_picture">Select Profile Picture</label>
         <input type="file" id="student_profile_picture" name="student_profile_picture" class="form-control">
-        @error('student_profile_picture')
-        <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
     </div>
+    @error('student_profile_picture')
+    <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
 </div>
 <div class="row py-4">
     <div class="col-md-3">
