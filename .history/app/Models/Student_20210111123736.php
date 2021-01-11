@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Bus\Queueable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use App\Jobs\PasswordResetJob;
 
 class Student extends Model
 {
-    use HasFactory,softDeletes;
+    use HasFactory, softDeletes;
 
     protected $guarded = [];
 
@@ -18,4 +19,11 @@ class Student extends Model
         return asset("storage/profile_pictures/{$value}");
     }
 
+
+    public function sendPasswordResetNotification($token)
+    {
+        $url = 'https://example.com/reset-password?token=' . $token;
+
+        dispatch(new PasswordResetJob($url))->afterResponse();
+    }
 }

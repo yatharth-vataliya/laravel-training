@@ -64,24 +64,24 @@ class StudentController extends Controller
             ]
         )->validate();
 
-        // $student['student_name'] = $request->input('student_name');
-        // $student['student_email'] = $request->input('student_email');
-        // $student['student_birth_date'] = $request->input('student_birth_date');
-        // $student['student_mobile'] = $request->input('student_mobile');
-        // $student['student_stream'] = $request->input('student_stream');
-        // $student['student_address'] = $request->input('student_address');
+        $student['student_name'] = $request->input('student_name');
+        $student['student_email'] = $request->input('student_email');
+        $student['student_birth_date'] = $request->input('student_birth_date');
+        $student['student_mobile'] = $request->input('student_mobile');
+        $student['student_stream'] = $request->input('student_stream');
+        $student['student_address'] = $request->input('student_address');
         if ($request->hasFile('student_profile_picture')) {
             $filename = '_' . time() . '.' . $request->file('student_profile_picture')->getClientOriginalExtension();
             $request->file('student_profile_picture')->storeAs('public/profile_pictures/', $filename,);
-            $validated['student_profile_picture'] = $filename;
+            $student['student_profile_picture'] = $filename;
         }
-        // $student['student_gender'] = $request->input('student_gender');
+        $student['student_gender'] = $request->input('student_gender');
         $hobbies = $request->input('student_hobbies');
         $hobbies = implode(',', ($hobbies ?? []));
         $hobbies = trim($hobbies, ',');
-        $validated['student_hobbies'] = $hobbies;
+        $student['student_hobbies'] = $hobbies;
 
-        $this->studentRepository->create($validated);
+        $this->studentRepository->create($student);
         return response()->view('students.index');
     }
 
@@ -155,7 +155,7 @@ class StudentController extends Controller
             }
             $filename = '_' . time() . '.' . $request->file('student_profile_picture')->getClientOriginalExtension();
             $request->file('student_profile_picture')->storeAs('public/profile_pictures/', $filename,);
-            $validated['student_profile_picture'] = $filename;
+            $data['student_profile_picture'] = $filename;
         }
         if ($request->input('is_image_delete') == 'yes') {
             try {
@@ -165,13 +165,13 @@ class StudentController extends Controller
                 Log::debug($th->getMessage());
             }
         }
-        // $data['student_gender'] = $request->input('student_gender');
+        $data['student_gender'] = $request->input('student_gender');
         $hobbies = $request->input('student_hobbies');
         $hobbies = implode(',', ($hobbies ?? []));
         $hobbies = trim($hobbies, ',');
-        $validated['student_hobbies'] = $hobbies;
-        unset($validated['student_id']);
-        $this->studentRepository->updateStudent($validated, $student);
+        $data['student_hobbies'] = $hobbies;
+
+        $this->studentRepository->updateStudent($data, $student);
         return response()->redirectToRoute('students.index');
     }
 

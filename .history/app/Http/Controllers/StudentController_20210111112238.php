@@ -73,15 +73,15 @@ class StudentController extends Controller
         if ($request->hasFile('student_profile_picture')) {
             $filename = '_' . time() . '.' . $request->file('student_profile_picture')->getClientOriginalExtension();
             $request->file('student_profile_picture')->storeAs('public/profile_pictures/', $filename,);
-            $validated['student_profile_picture'] = $filename;
+            $student['student_profile_picture'] = $filename;
         }
-        // $student['student_gender'] = $request->input('student_gender');
+        $student['student_gender'] = $request->input('student_gender');
         $hobbies = $request->input('student_hobbies');
         $hobbies = implode(',', ($hobbies ?? []));
         $hobbies = trim($hobbies, ',');
-        $validated['student_hobbies'] = $hobbies;
+        $student['student_hobbies'] = $hobbies;
 
-        $this->studentRepository->create($validated);
+        $this->studentRepository->create($student);
         return response()->view('students.index');
     }
 
@@ -170,7 +170,7 @@ class StudentController extends Controller
         $hobbies = implode(',', ($hobbies ?? []));
         $hobbies = trim($hobbies, ',');
         $validated['student_hobbies'] = $hobbies;
-        unset($validated['student_id']);
+
         $this->studentRepository->updateStudent($validated, $student);
         return response()->redirectToRoute('students.index');
     }

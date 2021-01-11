@@ -40,11 +40,12 @@ class ForgotPasswordController extends Controller
             );
         })->afterResponse();
 
-        return $this->sendResetLinkResponse($request, "success");
+        return $this->sendResetLinkResponse($request, $this->response);
     }
 
     protected function sendResetLinkResponse(Request $request, $response)
     {
+        Log::info()
         return $request->wantsJson()
             ? new JsonResponse(['message' => trans($response)], 200)
             : back()->with('status', trans($response));

@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
-
 class ForgotPasswordController extends Controller
 {
     /*
@@ -40,13 +38,13 @@ class ForgotPasswordController extends Controller
             );
         })->afterResponse();
 
-        return $this->sendResetLinkResponse($request, "success");
+        return $this->sendResetLinkResponse($request, $this->response);
     }
 
     protected function sendResetLinkResponse(Request $request, $response)
     {
         return $request->wantsJson()
-            ? new JsonResponse(['message' => trans($response)], 200)
-            : back()->with('status', trans($response));
+            ? new JsonResponse(['message' => trans($this->response)], 200)
+            : back()->with('status', "success");
     }
 }

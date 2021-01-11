@@ -170,7 +170,7 @@ class StudentController extends Controller
         $hobbies = implode(',', ($hobbies ?? []));
         $hobbies = trim($hobbies, ',');
         $validated['student_hobbies'] = $hobbies;
-        unset($validated['student_id']);
+
         $this->studentRepository->updateStudent($validated, $student);
         return response()->redirectToRoute('students.index');
     }
