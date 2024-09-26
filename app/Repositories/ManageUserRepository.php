@@ -1,21 +1,14 @@
 <?php
 
-
 namespace App\Repositories;
 
-
+use App\Models\ManageUser;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\ManageUser;
 
 class ManageUserRepository implements Interfaces\ManageUserRepositoryInterface
 {
-
-
-    public function __construct(private ManageUser $model)
-    {
-
-    }
+    public function __construct(private ManageUser $model) {}
 
     public function getAll(): Model
     {
@@ -50,12 +43,12 @@ class ManageUserRepository implements Interfaces\ManageUserRepositoryInterface
     public function getByDate(?string $start_date, ?string $end_date): Collection
     {
         $query = $this->model->query();
-        if (!empty($start_date)) {
-//            $start_date = date('Y-m-d', strtotime($start_date." -1 days"));
+        if (! empty($start_date)) {
+            //            $start_date = date('Y-m-d', strtotime($start_date." -1 days"));
             $query->where('date', '>=', $start_date);
         }
-        if (!empty($end_date)) {
-//            $end_date = date('Y-m-d', strtotime($end_date." +1 days"));
+        if (! empty($end_date)) {
+            //            $end_date = date('Y-m-d', strtotime($end_date." +1 days"));
             $query->where('date', '<=', $end_date);
         }
 

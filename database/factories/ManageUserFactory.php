@@ -22,13 +22,14 @@ class ManageUserFactory extends Factory
     public function definition()
     {
         $gender = ['female', 'male'];
+
         return [
             'user_name' => $this->faker->name,
             'user_email' => $this->faker->unique()->safeEmail,
             'user_address' => $this->faker->address,
             'user_mobile' => $this->faker->phoneNumber,
             'gender' => $gender[random_int(0, 1)],
-            'date' => $this->faker->date()
+            'date' => $this->faker->date(),
         ];
     }
 }

@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
-use Illuminate\Http\Request;
 use App\Repositories\StudentRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class StudentController extends Controller
 {
-
-    public function __construct(private StudentRepository $studentRepository)
-    {
-    }
+    public function __construct(private StudentRepository $studentRepository) {}
 
     /**
      * Display a listing of the resource.
@@ -39,7 +36,6 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -71,8 +67,8 @@ class StudentController extends Controller
         // $student['student_stream'] = $request->input('student_stream');
         // $student['student_address'] = $request->input('student_address');
         if ($request->hasFile('student_profile_picture')) {
-            $filename = '_' . time() . '.' . $request->file('student_profile_picture')->getClientOriginalExtension();
-            $request->file('student_profile_picture')->storeAs('public/profile_pictures/', $filename,);
+            $filename = '_'.time().'.'.$request->file('student_profile_picture')->getClientOriginalExtension();
+            $request->file('student_profile_picture')->storeAs('public/profile_pictures/', $filename);
             $validated['student_profile_picture'] = $filename;
         }
         // $student['student_gender'] = $request->input('student_gender');
@@ -82,13 +78,13 @@ class StudentController extends Controller
         $validated['student_hobbies'] = $hobbies;
 
         $this->studentRepository->create($validated);
+
         return response()->view('students.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Student $student
      * @return \Illuminate\Http\Response
      */
     public function show(Student $student)
@@ -99,7 +95,6 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Student $student
      * @return \Illuminate\Http\Response
      */
     public function edit(Student $student)
@@ -110,8 +105,7 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Student $student
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -122,9 +116,9 @@ class StudentController extends Controller
             [
                 'student_id' => 'required|numeric',
                 'student_name' => 'required|string|max:100',
-                'student_email' => 'required|string|email|max:100|unique:students,student_email,' . $request->student_id,
+                'student_email' => 'required|string|email|max:100|unique:students,student_email,'.$request->student_id,
                 'student_birth_date' => 'required|date',
-                'student_mobile' => 'nullable|string|max:13|min:10|unique:students,student_mobile,' . $request->student_id,
+                'student_mobile' => 'nullable|string|max:13|min:10|unique:students,student_mobile,'.$request->student_id,
                 'student_stream' => 'required|string|max:50',
                 'student_address' => 'nullable|string|max:200',
                 'student_profile_picture' => 'nullable|file|mimes:jpg,JPG,png,PNG,bpm,gif',
@@ -139,7 +133,6 @@ class StudentController extends Controller
             ]
         )->validate();
 
-
         $student = Student::find($request->student_id);
         // $data['student_name'] = $request->input('student_name');
         // $data['student_email'] = $request->input('student_email');
@@ -149,18 +142,18 @@ class StudentController extends Controller
         // $data['student_address'] = $request->input('student_address');
         if ($request->hasFile('student_profile_picture')) {
             try {
-                unlink(storage_path('app/public/profile_pictures/') . $student->getRawOriginal('student_profile_picture'));
+                unlink(storage_path('app/public/profile_pictures/').$student->getRawOriginal('student_profile_picture'));
             } catch (\Throwable $th) {
                 Log::debug($th->getMessage());
             }
-            $filename = '_' . time() . '.' . $request->file('student_profile_picture')->getClientOriginalExtension();
-            $request->file('student_profile_picture')->storeAs('public/profile_pictures/', $filename,);
+            $filename = '_'.time().'.'.$request->file('student_profile_picture')->getClientOriginalExtension();
+            $request->file('student_profile_picture')->storeAs('public/profile_pictures/', $filename);
             $validated['student_profile_picture'] = $filename;
         }
         if ($request->input('is_image_delete') == 'yes') {
             try {
-                unlink(storage_path('app/public/profile_pictures/') . $student->getRawOriginal('student_profile_picture'));
-                $data['student_profile_picture'] = NULL;
+                unlink(storage_path('app/public/profile_pictures/').$student->getRawOriginal('student_profile_picture'));
+                $data['student_profile_picture'] = null;
             } catch (\Throwable $th) {
                 Log::debug($th->getMessage());
             }
@@ -172,21 +165,22 @@ class StudentController extends Controller
         $validated['student_hobbies'] = $hobbies;
         unset($validated['student_id']);
         $this->studentRepository->updateStudent($validated, $student);
+
         return response()->redirectToRoute('students.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Student $student
+     * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request,$student)
+    public function destroy(Request $request, $student)
     {
         $student = Student::find($request->student_id);
-        if (!empty($student)) {
+        if (! empty($student)) {
             try {
-                unlink(storage_path('app/public/profile_pictures/') . $student->getRawOriginal('student_profile_picture'));
+                unlink(storage_path('app/public/profile_pictures/').$student->getRawOriginal('student_profile_picture'));
             } catch (\Throwable $th) {
                 Log::debug($th->getMessage());
             }
@@ -199,6 +193,7 @@ class StudentController extends Controller
     {
         if ($request->ajax()) {
             $students = $this->studentRepository->getAll();
+
             return DataTables::of($students)->addIndexColumn()->make(true);
         }
     }

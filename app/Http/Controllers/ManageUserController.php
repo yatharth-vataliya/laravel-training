@@ -3,15 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\ManageUser;
+use App\Repositories\Interfaces\ManageUserRepositoryInterface;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Repositories\Interfaces\ManageUserRepositoryInterface;
 
 class ManageUserController extends Controller
 {
-    public function __construct(private ManageUserRepositoryInterface $manageUserRepository)
-    {
-    }
+    public function __construct(private ManageUserRepositoryInterface $manageUserRepository) {}
 
     /**
      * Display a listing of the resource.
@@ -36,7 +34,6 @@ class ManageUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,7 +44,6 @@ class ManageUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\ManageUser $manageUser
      * @return \Illuminate\Http\Response
      */
     public function show(ManageUser $manageUser)
@@ -58,7 +54,6 @@ class ManageUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\ManageUser $manageUser
      * @return \Illuminate\Http\Response
      */
     public function edit(ManageUser $manageUser)
@@ -69,8 +64,6 @@ class ManageUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\ManageUser $manageUser
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ManageUser $manageUser)
@@ -81,7 +74,6 @@ class ManageUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\ManageUser $manageUser
      * @return \Illuminate\Http\Response
      */
     public function destroy(ManageUser $manageUser)
@@ -89,14 +81,14 @@ class ManageUserController extends Controller
         //
     }
 
-    function ajaxManageUsersData(Request $request)
+    public function ajaxManageUsersData(Request $request)
     {
         if ($request->ajax()) {
             $manage_users = $this->manageUserRepository->getByDate($request->start_date, $request->end_date);
-            return DataTables::of($manage_users)->addIndexColumn()->editColumn('date',function($data){
-                return date('d-m-Y',strtotime($data->date));
+
+            return DataTables::of($manage_users)->addIndexColumn()->editColumn('date', function ($data) {
+                return date('d-m-Y', strtotime($data->date));
             })->make(true);
         }
     }
-
 }

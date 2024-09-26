@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
@@ -23,7 +22,7 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-    public $response = NULL;
+    public $response = null;
 
     public function sendResetLinkEmail(Request $request)
     {
@@ -33,14 +32,13 @@ class ForgotPasswordController extends Controller
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.
 
-
-        dispatch(function() use ($request){
+        dispatch(function () use ($request) {
             $this->response = $this->broker()->sendResetLink(
                 $this->credentials($request)
             );
         })->afterResponse();
 
-        return $this->sendResetLinkResponse($request, "success");
+        return $this->sendResetLinkResponse($request, 'success');
     }
 
     protected function sendResetLinkResponse(Request $request, $response)

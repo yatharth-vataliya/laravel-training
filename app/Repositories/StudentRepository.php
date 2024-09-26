@@ -1,17 +1,13 @@
 <?php
 
-
 namespace App\Repositories;
-
 
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
 
 class StudentRepository
 {
-
-    private $model = NULL;
+    private $model = null;
 
     public function __construct(private Student $student)
     {
@@ -28,16 +24,13 @@ class StudentRepository
         return $this->model::create($data);
     }
 
-    public function updateStudent($data,$model)
+    public function updateStudent($data, $model)
     {
         // $model->update($data);
-        $this->model::where('id',$model->id)->update($data);
+        $this->model::where('id', $model->id)->update($data);
     }
 
-    public function getById($id): ?Model
-    {
-
-    }
+    public function getById($id): ?Model {}
 
     public function truncate(): bool
     {

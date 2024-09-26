@@ -22,7 +22,7 @@ class CreateStudentsTable extends Migration
             $table->string('student_stream');
             $table->string('student_address')->nullable();
             $table->string('student_profile_picture')->nullable();
-            $table->enum('student_gender',['female','male'])->nullable();
+            $table->enum('student_gender', ['female', 'male'])->nullable();
             $table->string('student_hobbies')->nullable();
             $table->softDeletes();
             $table->timestamps();

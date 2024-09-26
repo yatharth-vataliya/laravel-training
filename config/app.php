@@ -185,7 +185,7 @@ return [
          * Repository Provider
          */
 
-        \App\Providers\RepositoryServiceProvider::class
+        \App\Providers\RepositoryServiceProvider::class,
     ],
 
     /*

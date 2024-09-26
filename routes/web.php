@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\StudentController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +38,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/students/store', [StudentController::class, 'store'])->name('students.store');
 
-    
+
     Route::get('/students/edit/{student}', [StudentController::class, 'edit'])->name('students.edit');
 
     Route::post('/students/update', [StudentController::class, 'update'])->name('students.update');
