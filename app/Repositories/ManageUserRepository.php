@@ -10,7 +10,7 @@ class ManageUserRepository implements Interfaces\ManageUserRepositoryInterface
 {
     public function __construct(private ManageUser $model) {}
 
-    public function getAll(): Model
+    public function getAll(): Collection
     {
         return $this->model->all();
     }

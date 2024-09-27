@@ -2,11 +2,12 @@
 
 namespace App\Repositories\Interfaces;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 interface BaseEloquentInterface
 {
-    public function getAll(): Model;
+    public function getAll(): Collection;
 
     public function create(array $fields): Model;
 
